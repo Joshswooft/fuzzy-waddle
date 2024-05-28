@@ -1,0 +1,29 @@
+---
+import { Content as EdgeContent } from "@builder.io/sdk-qwik/bundle/edge";
+import { Content as BrowserContent } from "@builder.io/sdk-qwik/bundle/browser";
+import { isBrowser } from "@builder.io/qwik/build";
+import { CUSTOM_COMPONENTS } from "../register";
+import Default from "../layouts/default.astro";
+
+const builderAPIpublicKey = import.meta.env.BUILDER_API_PUBLIC_KEY;
+const blogPostModel = import.meta.env.BUILDER_BLOGPOST_MODEL;
+
+const Content = isBrowser ? BrowserContent : EdgeContent;
+---
+
+<Default title="Preview for builder.io">
+  <script
+    slot="in-head"
+    async
+    src="https://cdn.builder.io/js/qwik/qwikloader.js"></script>
+  <builder-component model={blogPostModel} api-key={builderAPIpublicKey}
+  ></builder-component>
+  <!-- shows the custom components in the builder.io sidebar -->
+  <Content
+    content={{}}
+    model={blogPostModel}
+    customComponents={CUSTOM_COMPONENTS}
+    apiKey={builderAPIpublicKey}
+  />
+  <script async src="https://cdn.builder.io/js/webcomponents"></script>
+</Default>

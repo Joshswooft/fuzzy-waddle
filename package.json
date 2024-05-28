@@ -13,6 +13,7 @@
     "@astrojs/check": "^0.7.0",
     "@astrojs/vercel": "^7.6.0",
     "@builder.io/qwik": "^1.5.5",
+    "@builder.io/sdk-qwik": "^0.14.21",
     "@qwikdev/astro": "^0.5.15",
     "astro": "^4.9.2",
     "typescript": "^5.4.5"
