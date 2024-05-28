@@ -1,0 +1,34 @@
+---
+import { isBrowser } from "@builder.io/qwik/build";
+import { CUSTOM_COMPONENTS } from "../register";
+import Default from "./default.astro";
+import { Content as EdgeContent } from "@builder.io/sdk-qwik/bundle/edge";
+import { Content as BrowserContent } from "@builder.io/sdk-qwik/bundle/browser";
+
+const builderAPIpublicKey = import.meta.env.BUILDER_API_PUBLIC_KEY;
+const blogPostModel = import.meta.env.BUILDER_BLOGPOST_MODEL;
+
+const { title, builderContent, isDraft } = Astro.props;
+const Content = isBrowser ? BrowserContent : EdgeContent;
+---
+
+<Default title={title}>
+    <!-- <script
+        slot="in-head"
+        async
+        src="https://cdn.builder.io/js/qwik/qwikloader.js"></script> -->
+    {
+        isDraft === true && (
+            <section>
+                <p>This is a draft page and not visible to users</p>
+            </section>
+        )
+    }
+    <Content
+        content={builderContent}
+        model={blogPostModel}
+        customComponents={CUSTOM_COMPONENTS}
+        apiKey={builderAPIpublicKey}
+    />
+    <slot />
+</Default>

@@ -1,0 +1,58 @@
+---
+export const prerender = true;
+import BlogLayout from "../../layouts/blog.astro";
+import { fetchEntries, fetchOneEntry } from "@builder.io/sdk-qwik";
+const builderModel = import.meta.env.BUILDER_BLOGPOST_MODEL;
+const builderAPIpublicKey = import.meta.env.BUILDER_API_PUBLIC_KEY;
+
+// getStaticPaths is used to build these dynamic pages
+// the "params" key is used by Astro to configure the url of each page. In our case its set to the slug.
+export async function getStaticPaths() {
+    const builderModel = import.meta.env.BUILDER_BLOGPOST_MODEL;
+    const builderAPIpublicKey = import.meta.env.BUILDER_API_PUBLIC_KEY;
+
+    // Fetch Builder.io Visual CMS content using the Qwik SDK.
+    // The public API key is set in the .env file at the root
+    // https://www.builder.io/c/docs/using-your-api-key
+    const builderContent = await fetchEntries({
+        model: builderModel,
+        apiKey: builderAPIpublicKey,
+        locale: "en",
+        fields: ["data.slug", "data.title", "data.draft", "id"].join(","),
+    });
+
+    if (!builderContent || builderContent.length === 0) {
+        return [];
+    }
+
+    return [
+        ...builderContent
+            // @ts-ignore
+            .map(({ data: { slug, title, draft }, id }) => [
+                {
+                    params: { slug }, // set the Astro params property to the slug so we can build the page
+                    props: { title, draft, id },
+                },
+            ])
+            .flat(),
+    ];
+}
+
+// This section is called after the getStaticPaths
+// For any help with qwik refer to this: https://github.com/BuilderIO/builder/blob/main/examples/qwik/src/routes/%5B...index%5D/index.tsx
+
+const { title, id, draft } = Astro.props;
+
+console.log(`title: ${title}, id: ${id}, isDraft: ${draft}`);
+
+const builderContent = await fetchOneEntry({
+    model: builderModel,
+    apiKey: builderAPIpublicKey,
+    locale: "en",
+    query: {
+        id: id,
+    },
+});
+---
+
+<BlogLayout title={title} builderContent={builderContent} isDraft={draft} />

@@ -13,6 +13,10 @@ const { title } = Astro.props;
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
+        <script
+            slot="in-head"
+            async
+            src="https://cdn.builder.io/js/qwik/qwikloader.js"></script>
     </head>
     <body>
         <slot />
