@@ -13,7 +13,6 @@ Name it "blog-article", with any description.
 
 ![blog-article-model](./docs/images/new-blog-article-model.PNG)
 
-
 Connect it up to your builder preview url (the astro site, typically this would be running on `http://localhost:4321/builder-preview`). Then click on save.
 
 ![add-preview-url](./docs/images/add-preview-url.PNG).
@@ -28,6 +27,8 @@ Add in the following fields "title", "slug" and "draft".
 
 After you added these fields, click "Save".
 
+At this point we should start the astro site: `npm run dev`. This will allow us to preview the blog content in the editor.
+
 Then click on ["Content"](https://builder.io/content) and create some new blog article content, making sure to publish them when done.
 
 ![content-page](./docs/images/content-page.PNG)
@@ -37,6 +38,10 @@ Fill out some blog content (Note: I don't even include my custom QWIK component 
 ![blog-content](./docs/images/my-blog.PNG)
 
 Again remember to click on "Publish"!!!.
+
+After you have published the changes, I noticed locally I need to restart my dev server so astro notices the new changes.
+
+If you have done everything right you should see your blog at: `http://localhost:4321/blog/test`.
 
 Lastly if you head over to your [settings](https://builder.io/account/space) you can view your public API key which should be stored in your `.env`.
 
