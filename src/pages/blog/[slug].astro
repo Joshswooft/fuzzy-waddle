@@ -25,6 +25,8 @@ export async function getStaticPaths() {
         return [];
     }
 
+    console.log("builder content: ", builderContent);
+
     return [
         ...builderContent
             // @ts-ignore
