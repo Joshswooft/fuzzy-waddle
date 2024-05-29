@@ -2,6 +2,10 @@
 
 ## Setup
 
+First clone the repo and run `npm install`.
+
+Note: I am using node version `v18.17.0` locally. (verified by using: `node --version`)
+
 Create a new builder.io project. 
 
 Click on ["Models"](https://builder.io/models) and then create a new "Section".
@@ -51,6 +55,13 @@ Set up `.env`
 BUILDER_API_PUBLIC_KEY=XXXX-XXXX-XXXX
 BUILDER_BLOGPOST_MODEL='blog-article'
 ```
+
+Note: locally this all works fine, it's when we try to deploy to vercel where things break. 
+
+I am using vercel CLI: `34.2.3` (verified by using `vercel --version`).
+
+Deploy it to vercel using the `vercel` command.
+You will notice a build error!
 
 
 ## 🧞 Commands
